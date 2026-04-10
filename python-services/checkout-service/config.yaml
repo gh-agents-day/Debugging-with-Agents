@@ -1,0 +1,29 @@
+# ShopSphere Checkout Service - Configuration
+# WARNING: DO NOT CHANGE without reviewing with the platform team
+
+service:
+  name: checkout-service
+  port: 8001
+  environment: production
+
+payment_service:
+  base_url: "http://localhost:8002"
+  # BUG: Timeout is 1 second - way too low for payment gateway SLA of 3s
+  timeout: 1
+  # BUG: No retry configured - single failure = permanent failure
+  retry_count: 0
+  retry_delay_ms: 0
+
+discount_service:
+  base_url: "http://localhost:8003"
+  timeout: 2
+
+logging:
+  level: INFO
+  # BUG: Structured logging not enabled - correlation IDs will not appear in logs
+  structured: false
+  include_trace_id: false
+
+features:
+  async_payment: true
+  discount_enabled: true

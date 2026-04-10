@@ -1,0 +1,30 @@
+2026-04-10 02:47:13 INFO  checkout-service Checkout started for user 101
+2026-04-10 02:47:13 INFO  discount-service No discount configured for userId=101
+2026-04-10 02:47:13 ERROR checkout-service Checkout failed for userId=101
+2026-04-10 02:47:14 INFO  checkout-service Checkout started for user 102
+2026-04-10 02:47:14 INFO  discount-service Discount found for userId=102: 10.0
+2026-04-10 02:47:14 INFO  payment-client Processing payment for userId=102 amount=140.0
+2026-04-10 02:47:14 INFO  checkout-service Processing complete status=processing
+2026-04-10 02:47:14 ERROR payment-client Payment processing failed
+2026-04-10 02:47:15 INFO  checkout-service Checkout started for user 103
+2026-04-10 02:47:15 INFO  discount-service No discount configured for userId=103
+2026-04-10 02:47:15 ERROR checkout-service Checkout failed for userId=103
+2026-04-10 02:47:15 INFO  checkout-service Checkout started for user 104
+2026-04-10 02:47:15 INFO  discount-service Discount found for userId=104: 10.0
+2026-04-10 02:47:16 INFO  payment-client Processing payment for userId=104 amount=89.99
+2026-04-10 02:47:16 INFO  checkout-service Processing complete status=processing
+2026-04-10 02:47:18 ERROR payment-client Payment processing failed
+2026-04-10 02:47:18 INFO  checkout-service Checkout started for user 105
+2026-04-10 02:47:18 INFO  discount-service No discount configured for userId=105
+2026-04-10 02:47:18 ERROR checkout-service Checkout failed for userId=105
+2026-04-10 02:47:19 WARN  checkout-service High failure rate detected: 3/5 checkouts failed
+2026-04-10 02:47:19 INFO  checkout-service Checkout started for user 200
+2026-04-10 02:47:19 INFO  discount-service Discount found for userId=200: 10.0
+2026-04-10 02:47:20 INFO  payment-client Processing payment for userId=200 amount=240.50
+2026-04-10 02:47:20 INFO  checkout-service Processing complete status=processing
+2026-04-10 02:47:22 ERROR payment-client Payment gateway error: connection refused
+2026-04-10 02:47:22 ERROR payment-client Payment processing failed
+2026-04-10 02:47:23 INFO  checkout-service Checkout started for user 201
+2026-04-10 02:47:23 INFO  discount-service No discount configured for userId=201
+2026-04-10 02:47:23 ERROR checkout-service Checkout failed for userId=201
+2026-04-10 02:47:23 WARN  checkout-service Incident threshold breached: PagerDuty alert fired
