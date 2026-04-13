@@ -1,4 +1,5 @@
 # Exercise M5 — Generate Tests with a Custom Agent and CLI
+
 ## ShopSphere Workshop · Time: 10 min · Feature: Custom Agent + `gh copilot` CLI
 
 > **CORE EXERCISE** — Lock in every fix with regression tests.
@@ -9,8 +10,10 @@
 ---
 
 ### Objective
+
 Generate a complete regression test suite for all 5 bug fixes using two
 complementary tools:
+
 - **Test Generator Agent** in Copilot Chat — structured, full-suite generation
 - **`gh copilot` CLI** — quick test scaffolding from the terminal
 
@@ -34,6 +37,7 @@ happened. This is the contract we are enforcing."
 #### Step 1 — Create Your Test Generator Agent
 
 Create a new file at:
+
 ```
 .github/agents/test-generator-agent.agent.md
 ```
@@ -49,7 +53,7 @@ description: >
   Test Generator Agent — Reads the source, discovers what safety patterns are
   implemented, and generates regression tests that prove each pattern works.
 mode: agent
-tools: [search/codebase]
+tools: [read, edit, search/codebase, search/fileSearch]
 ---
 
 You are a **senior test engineer** for the ShopSphere platform.
@@ -80,7 +84,6 @@ For each pattern found, generate:
 
 Use this structure for every test:
 
-```python
 def test_<scenario>_<expected_outcome>(self):
     """
     GIVEN: <precondition>
@@ -90,7 +93,7 @@ def test_<scenario>_<expected_outcome>(self):
     # Arrange
     # Act
     # Assert
-```
+
 
 ## Always Use
 - `pytest` and `@pytest.mark.asyncio` for async methods
@@ -100,6 +103,7 @@ def test_<scenario>_<expected_outcome>(self):
 ```
 
 **What changed from a hardcoded test list:**
+
 - The agent reads the code and discovers what was fixed — it doesn’t need to be told
 - This means it works after any future fix, not just the five in this incident
 - The tests it generates are tied to real code patterns, not assumed bug numbers
@@ -107,6 +111,7 @@ def test_<scenario>_<expected_outcome>(self):
 #### Step 2 — Invoke the Test Generator Agent
 
 In Copilot Chat:
+
 1. Click the agent picker
 2. Select **Test Generator Agent**
 
@@ -134,6 +139,7 @@ Requirements:
 #### Step 3 — Review Before Saving
 
 Check generated tests for:
+
 - Each test has a `GIVEN / WHEN / THEN` docstring
 - `AsyncMock` is used for `payment_client` (not `MagicMock`)
 - Test names match the bugs they cover (add a comment if useful)
@@ -174,6 +180,7 @@ python -m pytest tests/test_checkout_service.py -v
 ```
 
 Expected output (all green):
+
 ```
 PASSED tests/test_checkout_service.py::test_odd_user_gets_zero_discount_no_crash
 PASSED tests/test_checkout_service.py::test_even_user_gets_10_percent_discount_applied
@@ -187,6 +194,7 @@ PASSED tests/test_checkout_service.py::test_payment_retries_on_transient_failure
 ```
 
 If a test fails, ask the test-generator agent:
+
 ```
 📋 COPY AND PASTE INTO COPILOT CHAT (test-generator-agent selected):
 
@@ -208,6 +216,7 @@ python demo.py
 ```
 
 Expected:
+
 ```
 Results → 10 passed / 0 failed (0% failure rate)
 ✅ INCIDENT RESOLVED
@@ -217,11 +226,11 @@ Results → 10 passed / 0 failed (0% failure rate)
 
 ### Step 6 — Reflect: Agent vs CLI for Test Generation
 
-| Tool | Best for |
-|------|----------|
+| Tool                 | Best for                                                                                            |
+| -------------------- | --------------------------------------------------------------------------------------------------- |
 | Test Generator Agent | Full test suite — reads the code, finds patterns, generates tests without being told what was fixed |
-| `gh copilot explain` | Learning patterns before writing code |
-| `gh copilot suggest` | Quick one-off test scaffolding in the terminal |
+| `gh copilot explain` | Learning patterns before writing code                                                               |
+| `gh copilot suggest` | Quick one-off test scaffolding in the terminal                                                      |
 
 The key difference: the agent reads the actual source and generates tests anchored
 to real code patterns. The CLI generates plausible tests from a description. Both
@@ -242,6 +251,7 @@ are useful — neither requires you to enumerate what was fixed.
 ### Congratulations — Incident Closed
 
 You have:
+
 1. **Reproduced** the incident using a custom agent (M1)
 2. **Analysed** the logs and mapped all bugs using a custom agent (M2)
 3. **Traced** each bug to its root cause using a custom agent (M3)

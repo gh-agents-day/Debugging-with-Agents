@@ -1,4 +1,5 @@
 # Exercise M2 — Analyse Bugs with Logs using a Custom Agent
+
 ## ShopSphere Workshop · Time: 10 min · Feature: Custom Agent (create + run)
 
 > **CORE EXERCISE** — Build a log analysis agent that turns raw production logs
@@ -7,7 +8,9 @@
 ---
 
 ### Objective
+
 Create a `log-analysis-agent` that:
+
 1. Reads `production-logs.txt` and `incident-report.md`
 2. Cross-references log errors against source code
 3. Produces a ranked **Bug Inventory Report** with file and line evidence
@@ -26,6 +29,7 @@ runs it in under a minute — every time.
 ### Step 1 — Create Your Log Analysis Agent
 
 Create a new file at:
+
 ```
 .github/agents/log-analysis-agent.agent.md
 ```
@@ -42,7 +46,7 @@ description: >
   Log Analysis Agent — Reads production logs and the incident report,
   maps every error to its source file and line number, and produces a
   ranked bug list with evidence so engineers know exactly what to fix.
-tools: [search/codebase]
+tools: [read, search/codebase, search/fileSearch]
 ---
 
 You are the **ShopSphere Log Analysis Specialist**.
@@ -122,6 +126,7 @@ List anything that SHOULD be in the logs but is absent.
 ```
 
 **What each section does:**
+
 - `tools: [search/codebase]` — grants the agent permission to read any source file; it finds them itself
 - The **Phase 3** cross-reference is what separates a log analyser from a log viewer
 - The **Log Patterns Reference** encodes general Python/asyncio expertise, not ShopSphere-specific answers
@@ -136,6 +141,7 @@ Before invoking the agent, skim these files to build intuition:
 - `observability/incident-report.md` — look for the stack traces section
 
 **Ask yourself (do not look at source yet):**
+
 1. What Python error type appears most frequently?
 2. Which errors have a useful stack trace and which do not?
 3. Is there any log entry that mentions payment timing out?
@@ -145,6 +151,7 @@ Before invoking the agent, skim these files to build intuition:
 ### Step 3 — Invoke the Log Analysis Agent
 
 In Copilot Chat:
+
 1. Click the agent picker
 2. Select **ShopSphere Log Analysis Agent**
 
@@ -179,6 +186,7 @@ What is missing from the logs that would have made BUG-2 immediately obvious?
 ```
 
 The agent should explain:
+
 - BUG-3 (swallowed exceptions) is a **separate** bug that made every other bug
   harder to diagnose
 - Without `exc_info=True`, the stack trace from BUG-1 and BUG-2 was discarded
@@ -204,12 +212,12 @@ Review the suggestions and apply the ones that make sense.
 
 ### Step 6 — Compare Agent vs Manual
 
-| Task | Manual time | Agent time |
-|------|-------------|------------|
-| Count ERROR entries | ~5 min | ~5 sec |
-| Trace TypeError to source file | ~10 min | ~30 sec |
-| Identify all 5 bugs | ~20–40 min | ~1 min |
-| Produce written bug report | ~20 min | ~1 min |
+| Task                           | Manual time | Agent time |
+| ------------------------------ | ----------- | ---------- |
+| Count ERROR entries            | ~5 min      | ~5 sec     |
+| Trace TypeError to source file | ~10 min     | ~30 sec    |
+| Identify all 5 bugs            | ~20–40 min  | ~1 min     |
+| Produce written bug report     | ~20 min     | ~1 min     |
 
 ---
 

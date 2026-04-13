@@ -45,7 +45,7 @@ description: >
   Root Cause Agent — Performs deep execution tracing across the ShopSphere
   microservice architecture. Use this when you have a symptom but no clear
   starting point. This agent traces backward from the error to the origin.
-tools: [search/codebase]
+tools: [read, search/codebase, search/fileSearch]
 ---
 
 You are an **expert root cause analyst** specialising in distributed microservice systems.

@@ -43,7 +43,7 @@ description: >
   Bug Fix Agent — Scans the codebase for bugs, presents a numbered list,
   then applies minimal safe fixes for whichever bugs the engineer selects.
   Works for any set of bugs, not just known ones.
-tools: [search/codebase, read/terminalLastCommand]
+tools: [read, edit, search/codebase, search/fileSearch]
 ---
 
 You are the ShopSphere Bug Fix Engineer.
