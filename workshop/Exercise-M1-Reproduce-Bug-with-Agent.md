@@ -1,4 +1,5 @@
 # Exercise M1 — Reproduce the Bug with a Custom Agent
+
 ## ShopSphere Workshop · Time: 10 min · Feature: Custom Agent (create + run)
 
 > **CORE EXERCISE** — Build your first custom agent: the incident reproducer.
@@ -7,7 +8,9 @@
 ---
 
 ### Objective
+
 Create a `reproduce-agent` that any on-call engineer can invoke to:
+
 1. Run the incident simulator and read the output
 2. Parse the incident report
 3. Produce a structured **Symptom Report** — the starting point for every fix
@@ -30,12 +33,12 @@ It lives in `.github/agents/` and becomes selectable from the agent picker in Co
 
 **Key frontmatter fields:**
 
-| Field | Purpose |
-|-------|---------|
-| `name` | The label shown in the agent picker |
-| `mode: agent` | Enables file reads, terminal reads, codebase search |
-| `description` | Shown when hovering over the agent in the picker |
-| `tools` | Comma-separated list of capabilities the agent can use |
+| Field         | Purpose                                                |
+| ------------- | ------------------------------------------------------ |
+| `name`        | The label shown in the agent picker                    |
+| `mode: agent` | Enables file reads, terminal reads, codebase search    |
+| `description` | Shown when hovering over the agent in the picker       |
+| `tools`       | Comma-separated list of capabilities the agent can use |
 
 The Markdown body is the system prompt — it defines _how_ the agent thinks and responds.
 
@@ -44,6 +47,7 @@ The Markdown body is the system prompt — it defines _how_ the agent thinks and
 ### Step 2 — Create Your Reproduce Agent
 
 Create a new file at:
+
 ```
 .github/agents/reproduce-agent.agent.md
 ```
@@ -144,6 +148,7 @@ Output in this exact format:
 ```
 
 **What each section does:**
+
 - The **Protocol phases** ensure the agent always follows the same structured investigation path
 - The **Output format** block means every engineer gets a comparable Symptom Report
 - The **Quick Reference** is operational context only — where to find logs and incident data, not what the bugs are
@@ -163,6 +168,7 @@ python demo.py
 Leave this terminal output visible — the agent will read it.
 
 You should see:
+
 ```
 ✓  user=100   $150.00   processing   Regular customer
 ✗  user=101   $ 89.99   failed       New signup
@@ -178,6 +184,7 @@ Results → 5 passed / 5 failed (50% failure rate)
 ### Step 4 — Invoke the Reproduce Agent
 
 In Copilot Chat:
+
 1. Click the agent picker (the `@` menu or mode selector)
 2. Select **ShopSphere Reproduce Agent**
 
@@ -200,6 +207,7 @@ Reference files:
 ### Step 5 — Review the Symptom Report
 
 The agent will output a **Incident Reproduction Report** with:
+
 - Failure rate and affected user IDs pattern
 - Observed error messages
 - Risk assessment
@@ -212,11 +220,15 @@ Confirm the report matches what you saw in `demo.py`.
 ### Step 6 — Customise the Agent (optional but recommended)
 
 The agent file at `.github/agents/reproduce-agent.agent.md` is yours to edit.
-Try adding a ShopSphere-specific note. Open it and append to the
-`ShopSphere Quick Reference` section:
+Try adding a ShopSphere-specific note to the `ShopSphere Quick Reference` section.
+
+> **Important:** The reproduce-agent is read-only — it can read terminals and
+> search code, but it cannot edit files. Switch back to the **generic Agent mode**
+> (click the mode picker and select **Agent**) before asking Copilot to make
+> the edit.
 
 ```
-📋 COPY AND PASTE INTO COPILOT CHAT:
+📋 COPY AND PASTE INTO COPILOT CHAT (switch to Agent mode first):
 
 I want to add this rule to my reproduce-agent's ShopSphere Quick Reference section:
 "Even userIds with a valid discount still show status='processing' and never
@@ -236,4 +248,3 @@ Suggest the exact text to append to the Quick Reference section of
 - [ ] Report flags data integrity risk (double-charge / lost order)
 
 **Next:** [Exercise M2 — Analyse Bugs with Logs using a Custom Agent](Exercise-M2-Analyse-Logs-with-Agent.md)
-
