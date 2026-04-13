@@ -155,7 +155,7 @@ without switching to the Chat pane.
 #### Step B1 — Explain what tests exist
 
 ```bash
-gh copilot explain "pytest AsyncMock patterns for testing an async FastAPI service method that calls an async payment client and an async discount client"
+pytest AsyncMock patterns for testing an async FastAPI service method that calls an async payment client and an async discount client
 ```
 
 This gives you the patterns before you write code.
@@ -163,7 +163,7 @@ This gives you the patterns before you write code.
 #### Step B2 — Suggest a test file
 
 ```bash
-gh copilot suggest "generate pytest regression tests for a Python checkout service that was fixed for: null discount crash, unawaited asyncio task, and swallowed exceptions without exc_info"
+generate pytest regression tests for a Python checkout service that was fixed for: null discount crash, unawaited asyncio task, and swallowed exceptions without exc_info
 ```
 
 Review the output, copy the suggested code, and paste it into

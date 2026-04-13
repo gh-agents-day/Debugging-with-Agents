@@ -41,6 +41,7 @@ Paste the following content into your new file:
 ```
 ---
 mode: agent
+name: Root Cause Agent
 description: >
   Root Cause Agent — Performs deep execution tracing across the ShopSphere
   microservice architecture. Use this when you have a symptom but no clear
