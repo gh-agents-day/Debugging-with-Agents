@@ -29,8 +29,8 @@ For ShopSphere:
 ```
 POST /api/v1/checkout
   └─ CheckoutService.processCheckout()
-      ├─ DiscountClient.getDiscount()     ← Can return null
-      └─ PaymentClient.processPayment()   ← @Async / asyncio.create_task()
+      ├─ DiscountClient.getDiscount()
+      └─ PaymentClient.processPayment()
 ```
 
 ### Phase 3 — Eliminate Suspects
@@ -64,11 +64,3 @@ EVIDENCE:
 - Is data integrity at risk (double charges, missing orders)?
 - Is there a workaround operations can apply immediately?
 
-## ShopSphere Bug Taxonomy
-| Symptom | Likely Root Cause |
-|---------|------------------|
-| "Checkout failed" for odd userIds | Null discount + no null check |
-| "processing" but payment never charged | Missing await on async payment task |
-| Errors in logs but no detail | Swallowed exceptions |
-| All payments timing out | Config timeout too low (1s vs 3s SLA) |
-| Random 50% payment failures | No retry on transient failures |
