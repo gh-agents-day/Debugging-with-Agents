@@ -1,25 +1,44 @@
-# ShopSphere Platform — Debug with GitHub Copilot Custom Agents
+# ShopSphere Platform — Debug with GitHub Copilot
 
 ## Objective
 
 A hands-on workshop where you act as an on-call engineer responding to a **P0 production incident** on a live e-commerce platform. You will **build custom Copilot agents** for each stage of the incident response — reproduce, analyse, fix, and validate — and use them to resolve five real production bugs.
 
-| | |
-|---|---|
-| **Duration** | ~55 min (5 core exercises · ~10 min each) |
-| **Audience** | Developers (Intermediate / Senior) |
-| **Format** |Hands-on Lab |
-| **Stack** | Python FastAPI |
+Choose your track:
+
+| Track | Environment | Best for |
+|-------|-------------|---------|
+| **Agent Track** (VS Code) | Copilot Chat + Agent Mode | Learning Copilot Chat features and custom agents |
+| **CLI Track** (Terminal) | `copilot` CLI | Terminal-native workflows, CI/CD integration, enterprise guardrails |
+
+Both tracks resolve the same P0 incident. Same bugs. Same fixes. Different tools.
 
 ---
 
 ## Prerequisites
 
+### Agent Track (VS Code)
 - GitHub Copilot license (Chat + Agent Mode enabled)
 - Python 3.12+ installed
-- `gh` CLI installed and authenticated (`gh auth login`)
 - VS Code with the GitHub Copilot extension
 
+### CLI Track (Terminal)
+- GitHub Copilot license
+- Python 3.12+ installed
+- Copilot CLI installed and authenticated:
+
+```bash
+# Windows
+winget install GitHub.Copilot
+# macOS / Linux
+brew install copilot-cli
+# Cross-platform (Node.js 22+)
+npm install -g @github/copilot
+
+copilot login
+```
+
+### Both tracks
 ```bash
 cd python-services/checkout-service
 pip install -r requirements.txt
@@ -30,7 +49,24 @@ python demo.py          # confirm the incident is reproducible
 
 ## Table of Contents
 
-### Core Exercises — Custom Agent Path (~45 min)
+### CLI Track — Enterprise Terminal Workflow (~60 min)
+
+Run the complete incident response using the **GitHub Copilot CLI**. No VS Code. Pure terminal.
+
+> **Full CLI track guide:** [`workshop/CLI/README.md`](workshop/CLI/README.md)
+
+| # | Exercise | Key CLI Features | Time |
+|---|----------|-----------------|------|
+| CLI-00 | [Setup & Project Initialization](workshop/CLI/CLI-00-Setup.md) | `copilot init`, `copilot login`, repo settings | 5 min |
+| CLI-M1 | [Reproduce the Incident](workshop/CLI/CLI-M1-Reproduce.md) | `--autopilot`, `--agent=`, `-p`, `--allow-tool` | 10 min |
+| CLI-M2 | [Analyse Logs with Research Agent](workshop/CLI/CLI-M2-Analyse-Logs.md) | built-in `explore`, `/research`, `@ file`, `/compact` | 10 min |
+| CLI-M3 | [Root Cause Analysis in Plan Mode](workshop/CLI/CLI-M3-Root-Cause.md) | `--plan`, `/plan`, `--effort=high`, `Shift+Tab` | 10 min |
+| CLI-M4 | [Fix All Bugs with Fleet & Guardrails](workshop/CLI/CLI-M4-Fix-Bugs.md) | `/fleet`, `--autopilot`, `/diff`, `--deny-tool` | 15 min |
+| CLI-M5 | [Tests, Code Review & PR Delegation](workshop/CLI/CLI-M5-Tests-and-PR.md) | `/review`, `/delegate`, `/pr`, `--output-format=json` | 10 min |
+
+---
+
+### Agent Track — Custom Agent Path (~45 min)
 
 Build a custom agent for each stage of an incident response, then use it.
 
@@ -40,7 +76,7 @@ Build a custom agent for each stage of an incident response, then use it.
 | M2 | [Analyse Bugs with Logs using an Agent](workshop/Exercise-M2-Analyse-Logs-with-Agent.md) | `log-analysis-agent` | Reads logs · cross-references code · produces Bug Inventory |
 | M3 | [Root Cause Analysis with a Custom Agent](workshop/Exercise-M3-Root-Cause-Analysis-with-Agent.md) | `root-cause-agent` | Traces backward from symptom to exact code origin with evidence |
 | M4 | [Fix All Bugs with a Custom Agent](workshop/Exercise-M4-Fix-Bugs-with-Agent.md) | `bug-fix-agent` | Applies all 5 minimal fixes with before/after diffs |
-| M5 | [Generate Tests with Agent and CLI](workshop/Exercise-M5-Generate-Tests-with-Agent-and-CLI.md) | `test-generator-agent` | Full regression suite · `gh copilot` CLI scaffolding · green run |
+| M5 | [Generate Tests with Agent and CLI](workshop/Exercise-M5-Generate-Tests-with-Agent-and-CLI.md) | `test-generator-agent` | Full regression suite · `copilot` CLI scaffolding · green run |
 
 ### Optional Exercises — Chat Participant Techniques (~45 min)
 
@@ -59,7 +95,7 @@ if you want to understand the building blocks, or if you have time after the cor
 | 07 | [Fix Bug #1 with `#selection`](workshop/Exercise-07-Fix-Null-Crash-with-Selection.md) | `#selection` |
 | 08 | [Fix Bugs #2 & #3 with Agent Mode](workshop/Exercise-08-Fix-Async-and-Exceptions-Agent-Mode.md) | Agent mode |
 | 09–10 | [Build & Run Your Own Debug Agent](workshop/Exercise-09-Build-Your-Debug-Agent.md) | Custom agent |
-| 11 | [Generate Tests with CLI](workshop/Exercise-11-Generate-Tests-with-CLI.md) | `gh copilot` CLI |
+| 11 | [Generate Tests with CLI](workshop/Exercise-11-Generate-Tests-with-CLI.md) | `copilot` CLI |
 
 > Full exercise details and copy-paste prompts: [`workshop/EXERCISES.md`](workshop/EXERCISES.md)
 

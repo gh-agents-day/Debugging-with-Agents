@@ -1,5 +1,5 @@
 # Exercise 11 — Generate Tests and Validate with CLI
-## ShopSphere Workshop · Time: 5 min · Feature: `gh copilot` CLI + test-generator agent
+## ShopSphere Workshop · Time: 5 min · Feature: `copilot` CLI + test-generator agent
 
 > **MANDATORY** — Close the loop: generate regression tests that prove every bug is fixed.
 
@@ -17,13 +17,24 @@ A regression test is the lasting artifact that makes this incident valuable.
 
 ---
 
-### Option A — GitHub CLI
+### Option A — GitHub Copilot CLI
 
 Use the CLI when you're already in a terminal and don't want to switch to the Chat pane.
 
+> **Prerequisites:** Install the Copilot CLI first (one-time).
+> ```bash
+> # Windows
+> winget install GitHub.Copilot
+> # macOS / Linux
+> brew install copilot-cli
+> # Cross-platform (requires Node.js 22+)
+> npm install -g @github/copilot
+> ```
+> Then authenticate once: run `copilot` in your project directory and enter `/login`.
+
 ```bash
-# Explain what tests are needed (educational)
-"explain pytest tests for checkout service that fixed:
+# Learn what tests are needed (educational — non-interactive)
+copilot -p "Explain pytest tests for a checkout service that was fixed for:
 1. discount=None crash for odd userIds
 2. asyncio payment not awaited
 3. swallowed exceptions without exc_info
@@ -31,9 +42,18 @@ Use AsyncMock and @pytest.mark.asyncio"
 ```
 
 ```bash
-# Suggest a new test file (generative)
-"generate pytest file tests/test_checkout_service.py
+# Generate a new test file (non-interactive)
+copilot -p "Generate a pytest file at tests/test_checkout_service.py
 covering the 5 bug fixes in the ShopSphere checkout service"
+```
+
+Or start an **interactive session** and ask conversationally:
+
+```bash
+cd python-services/checkout-service
+copilot
+# Then type your question at the prompt, e.g.:
+# Generate pytest regression tests for the 5 bugs fixed in checkout_service.py
 ```
 
 ---

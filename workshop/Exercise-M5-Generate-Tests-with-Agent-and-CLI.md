@@ -1,6 +1,6 @@
 # Exercise M5 — Generate Tests with a Custom Agent and CLI
 
-## ShopSphere Workshop · Time: 10 min · Feature: Custom Agent + `gh copilot` CLI
+## ShopSphere Workshop · Time: 10 min · Feature: Custom Agent + `copilot` CLI
 
 > **CORE EXERCISE** — Lock in every fix with regression tests.
 > Use the test-generator agent to generate the full test suite, and the
@@ -15,7 +15,7 @@ Generate a complete regression test suite for all 5 bug fixes using two
 complementary tools:
 
 - **Test Generator Agent** in Copilot Chat — structured, full-suite generation
-- **`gh copilot` CLI** — quick test scaffolding from the terminal
+- **`copilot` CLI** — quick test scaffolding from the terminal
 
 Then run the tests to prove every bug is fixed and cannot regress.
 
@@ -147,23 +147,44 @@ Check generated tests for:
 
 ---
 
-### Path B — GitHub CLI from the Terminal
+### Path B — GitHub Copilot CLI from the Terminal
 
 Use this path when you prefer the terminal or want to scaffold tests quickly
 without switching to the Chat pane.
 
-#### Step B1 — Explain what tests exist
+> **Prerequisites:** Install the Copilot CLI first (one-time).
+> ```bash
+> # Windows
+> winget install GitHub.Copilot
+> # macOS / Linux
+> brew install copilot-cli
+> # Cross-platform (requires Node.js 22+)
+> npm install -g @github/copilot
+> ```
+> Then authenticate once: run `copilot` in your project directory and enter `/login`.
+
+#### Step B1 — Learn the patterns (non-interactive)
 
 ```bash
-pytest AsyncMock patterns for testing an async FastAPI service method that calls an async payment client and an async discount client
+copilot -p "Explain AsyncMock patterns for testing an async FastAPI service method that calls an async payment client and an async discount client"
 ```
 
 This gives you the patterns before you write code.
 
-#### Step B2 — Suggest a test file
+#### Step B2 — Generate a test file (non-interactive)
 
 ```bash
-generate pytest regression tests for a Python checkout service that was fixed for: null discount crash, unawaited asyncio task, and swallowed exceptions without exc_info
+copilot -p "Generate pytest regression tests for a Python checkout service that was fixed for: null discount crash, unawaited asyncio task, and swallowed exceptions without exc_info"
+```
+
+Or use the **interactive session** for a back-and-forth workflow:
+
+```bash
+cd python-services/checkout-service
+copilot
+# Type at the prompt:
+# Generate pytest regression tests for checkout_service.py covering:
+# null discount crash, unawaited asyncio task, swallowed exceptions
 ```
 
 Review the output, copy the suggested code, and paste it into
@@ -226,11 +247,12 @@ Results → 10 passed / 0 failed (0% failure rate)
 
 ### Step 6 — Reflect: Agent vs CLI for Test Generation
 
-| Tool                 | Best for                                                                                            |
-| -------------------- | --------------------------------------------------------------------------------------------------- |
-| Test Generator Agent | Full test suite — reads the code, finds patterns, generates tests without being told what was fixed |
-| `gh copilot explain` | Learning patterns before writing code                                                               |
-| `gh copilot suggest` | Quick one-off test scaffolding in the terminal                                                      |
+| Tool                     | Best for                                                                                            |
+| ------------------------ | --------------------------------------------------------------------------------------------------- |
+| Test Generator Agent     | Full test suite — reads the code, finds patterns, generates tests without being told what was fixed |
+| `copilot -p "explain ..."` | Learning patterns before writing code (non-interactive)                                           |
+| `copilot -p "generate ..."` | Quick one-off test scaffolding from the terminal (non-interactive)                               |
+| `copilot` (interactive)  | Conversational back-and-forth test generation in the terminal                                       |
 
 The key difference: the agent reads the actual source and generates tests anchored
 to real code patterns. The CLI generates plausible tests from a description. Both
@@ -244,7 +266,7 @@ are useful — neither requires you to enumerate what was fixed.
 - [ ] Tests generated and saved to `tests/test_checkout_service.py`
 - [ ] All 7 tests pass (or all tests that were generated pass)
 - [ ] `python demo.py` shows 0% failure rate
-- [ ] You can explain the difference between `gh copilot suggest` and the test generator agent
+- [ ] You can explain the difference between `copilot -p "..."` and the test generator agent
 
 ---
 
