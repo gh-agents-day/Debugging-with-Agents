@@ -1,6 +1,7 @@
 # CLI-M3 — Root Cause Analysis in Plan Mode
 
-## ShopSphere CLI Track · Time: 10 min · Features: `--plan`, `/plan`, `--mode=plan`, `--effort=high`, `/session plan`, `Shift+Tab`
+## ShopSphere CLI Track · Time: 10 min 
+Features: `--plan`, `/plan`, `--mode=plan`, `/session plan`, `Shift+Tab`
 
 > **CORE EXERCISE** — Use the CLI's Plan Mode to construct a structured,
 > evidence-backed Root Cause Analysis before any code is changed. Plan mode
@@ -173,41 +174,14 @@ Type `/exit` to close the session.
 
 ---
 
-## Enterprise Pattern: RCA in a Gated Pipeline
-
-In enterprise CI/CD, RCA can be a gated pipeline step that blocks deployment
-if the analysis finds unresolved root causes:
-
-```bash
-#!/bin/bash
-# rca-gate.sh — blocks deployment if unresolved P0 root causes found
-
-RCA=$(copilot \
-  --agent=root-cause-agent \
-  --mode=plan \
-  --allow-tool='read' \
-  --deny-tool='edit' \
-  --deny-tool='create' \
-  --silent \
-  -p "Scan checkout_service.py and payment_client.py for any of these defects:
-  None-guard missing before arithmetic, unawaited asyncio tasks, bare except
-  without exc_info, timeouts configured but not enforced, no retry on external
-  calls. Output ONLY 'CLEAN' if none found, or 'DEFECTS: <list>' if any found.")
-
-echo "RCA result: $RCA"
-echo "$RCA" | grep -q "^CLEAN$" || exit 1
-```
-
----
 
 ## Checkpoint ✓
 
-- [ ] Root cause agent started in `--plan` mode with `--effort=high`
+- [ ] Root cause agent started in `--plan` mode
 - [ ] RCA produced — 5 bugs with causal chains and fix hypotheses
 - [ ] Plan reviewed using `/session plan`
 - [ ] `Shift+Tab` mode cycling demonstrated
 - [ ] RCA exported as Markdown file in `observability/`
-- [ ] 5 fix directives prepared as input for CLI-M4
-- [ ] You can explain when plan mode adds value over interactive mode
+
 
 Next: [CLI-M4 Bug Fix](./CLI-M4-Fix-Bugs.md)

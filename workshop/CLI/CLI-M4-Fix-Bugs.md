@@ -1,6 +1,7 @@
 # CLI-M4 — Fix All Bugs with Fleet & Guardrails
 
-## ShopSphere CLI Track · Time: 15 min · Features: `/fleet`, `--autopilot`, `/diff`, `--allow-tool`, `--deny-tool`, `/undo`, `--deny-tool='shell(git push)'`
+## ShopSphere CLI Track · Time: 15 min 
+Features: `/fleet`, `--autopilot`, `/diff`, `--allow-tool`, `--deny-tool`, `/undo`, `--deny-tool='shell(git push)'`
 
 > **CORE EXERCISE** — Apply all 5 bug fixes using the CLI's parallel `/fleet`
 > execution and enterprise guardrails. Review every diff before it is committed.

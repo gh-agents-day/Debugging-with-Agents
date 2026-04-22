@@ -1,7 +1,7 @@
 # CLI-M2 — Analyse Logs with Research Agent
 
-## ShopSphere CLI Track · Time: 10 min · Features: `--agent=explore`, `/research`, `@ file`, `/compact`, `/context`, built-in agents
-
+## ShopSphere CLI Track · Time: 10 min 
+Features: `/research`, `@ file`, `/compact`, `/context`
 > **CORE EXERCISE** — Use the CLI's built-in intelligence agents to cross-reference
 > production logs against the codebase and produce a precise Bug Inventory —
 > the evidence-backed list of what is broken and where.

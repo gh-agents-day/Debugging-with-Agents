@@ -1,6 +1,7 @@
 # CLI-M1 — Reproduce the Incident
 
-## ShopSphere CLI Track · Time: 10 min · Features: `--autopilot`, `--agent=`, `-p`, `--allow-tool`, `--output-format=json`
+## ShopSphere CLI Track · Time: 10 min 
+Features: `--autopilot`, `--agent=`, `-p`, `--allow-tool`, `--output-format=json`
 
 > **CORE EXERCISE** — Use the CLI to autonomously reproduce the P0 production
 > incident, then capture the structured output for hand-off to the analysis stage.
@@ -33,6 +34,12 @@ The `reproduce-agent` lives at `.github/agents/reproduce-agent.agent.md`.
 Inspect it from the CLI before running:
 
 ```bash
+copilot --agent=reproduce-agent
+```
+or 
+Use `/agent` thens select `ShopSphere Reproduce Agent` from the list.` 
+
+```bash
 copilot -sp "Summarise the reproduce-agent definition at .github/agents/reproduce-agent.agent.md in 5 bullet points."
 ```
 
@@ -58,8 +65,6 @@ You should see failures. Note the failure rate. This is the incident you are res
 ## Step 3 — Run the Reproduce Agent via CLI (Autopilot)
 
 Now let Copilot reproduce the incident autonomously:
-
-Use `/agent` thens select `ShopSphere Reproduce Agent` from the list.` 
 
 ```bash
 cd path/to/Debugging-with-Agents

@@ -145,96 +145,9 @@ Re-run the review to confirm findings are resolved:
 /review Confirm that the HIGH and MEDIUM severity findings from the previous
 review have been addressed. Output PASS or list any remaining findings.
 ```
-
 ---
 
-## Step 5 — Delegate the Full PR to Copilot
-
-`/delegate` is the CLI's most powerful PR feature: it applies changes to a
-remote branch, writes the PR description, and opens the pull request.
-
-```bash
-/delegate Create a pull request for the ShopSphere P0 incident fix.
-
-Branch name: fix/p0-checkout-incident-2026-04-21
-
-PR title: fix(checkout): resolve P0 incident — 5 production bugs affecting 50% of users
-
-PR description must include:
-- Incident summary (what broke, when, impact)
-- Root cause for each of the 5 bugs (one paragraph each)
-- Files changed and why
-- How to verify (run demo.py + pytest)
-- Link to observability/root-cause-analysis.md
-- Link to observability/incident-report.md
-
-Label: bug, P0, incident-response
-```
-
-`/delegate` will:
-1. Create the branch
-2. Commit the changes with a structured message
-3. Push to the remote
-4. Open the PR with the description you specified
-
----
-
-## Step 6 — Use /pr for Fine-Grained PR Control
-
-If you prefer step-by-step PR control rather than full delegation:
-
-```bash
-# View the current branch's PR status
-/pr view
-
-# Create the PR interactively
-/pr create
-
-# Auto-generate PR title and description from the commit history
-/pr auto
-
-# Fix issues flagged in the PR (e.g. CI failures, review comments)
-/pr fix The CI is failing because pytest-asyncio is not in requirements.txt.
-Fix it and push the update.
-```
-
----
-
-## Step 7 — CI Integration with --output-format=json
-
-Integrate the full fix-and-test pipeline into CI using JSON output:
-
-```bash
-#!/bin/bash
-# ci-validate-fixes.sh — runs after a fix PR is opened
-
-# Generate test report as JSON
-copilot \
-  --agent=task \
-  --autopilot \
-  --allow-all-tools \
-  --output-format=json \
-  --silent \
-  -p "Run python -m pytest tests/test_checkout_service.py --tb=short -q in
-python-services/checkout-service. Output a JSON object:
-{
-  'passed': <number>,
-  'failed': <number>,
-  'failure_details': [<test names that failed>]
-}" > test-report.json
-
-FAILED=$(python3 -c "import json,sys; d=json.load(open('test-report.json')); sys.exit(0 if d.get('failed',1)==0 else 1)" 2>/dev/null)
-
-if [ $? -ne 0 ]; then
-  echo "Tests failed. See test-report.json"
-  exit 1
-fi
-echo "All tests passed."
-```
-
----
-
-## Step 8 — Archive the Full Incident Session
+## Step 5 — Archive the Full Incident Session
 
 Save the entire CLI-M5 session as the final incident artefact:
 
@@ -247,7 +160,6 @@ This creates a private gist containing:
 - All code changes made
 - Test generation
 - Code review findings
-- PR creation output
 
 The gist URL is the permanent record of how the incident was resolved.
 
@@ -259,24 +171,7 @@ The gist URL is the permanent record of how the incident was resolved.
 - [ ] Code review ran — HIGH and MEDIUM findings addressed (Step 3–4)
 - [ ] PR created via `/delegate` or `/pr` with structured description (Step 5–6)
 - [ ] `demo.py` shows 0% failure rate on the fixed branch (CLI-M4 carryover)
-- [ ] Session archived as gist (Step 8)
-- [ ] You can explain the difference between `/delegate` and `/pr auto`
-- [ ] You can explain when `--output-format=json` is used in a real pipeline
-
+- [ ] Session archived as gist (Step 5)
 ---
 
 ## Congratulations — P0 Incident Resolved via CLI
-
-You have completed the ShopSphere P0 incident using only the Copilot CLI:
-
-| Exercise | Tool used | What you proved |
-|----------|-----------|----------------|
-| CLI-00 | `copilot init`, settings | CLI configured and context-aware |
-| CLI-M1 | `--autopilot`, `--agent=` | Incident reproduced autonomously |
-| CLI-M2 | `explore`, `/research`, `@ file` | Logs cross-referenced against source |
-| CLI-M3 | `--plan`, `/plan`, `--effort=high` | Root causes traced with evidence |
-| CLI-M4 | `/fleet`, `/diff`, `--deny-tool` | 5 fixes applied safely in parallel |
-| CLI-M5 | `/review`, `/delegate`, `/pr` | Tests written, reviewed, PR shipped |
-
-**Continue to [CLI-Bonus-Hooks-and-Governance](CLI-Bonus-Hooks-and-Governance.md)
-to learn how to enforce these guardrails automatically for your entire team.**
