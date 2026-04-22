@@ -181,4 +181,4 @@ copilot \
 - [ ] Non-interactive probe returns a ShopSphere-specific answer
 - [ ] `.github/copilot/settings.json` created
 
-**You are ready for CLI-M1.**
+Next: [CLI-M1-Reproduce.md](./CLI-M1-Reproduce.md)

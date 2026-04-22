@@ -37,14 +37,10 @@ In incident response, this is the difference between:
 ```bash
 cd path/to/Debugging-with-Agents
 
-copilot \
-  --agent=root-cause-agent \
-  --plan \
-  --effort=high
+copilot --agent=root-cause-agent --plan
 ```
 
-`--plan` starts the session in plan mode. `--effort=high` enables extended
-reasoning — essential for causal analysis that spans multiple files.
+`--plan` starts the session in plan mode. 
 
 Inside the session, you will see the plan-mode indicator. Submit the RCA prompt:
 
@@ -214,4 +210,4 @@ echo "$RCA" | grep -q "^CLEAN$" || exit 1
 - [ ] 5 fix directives prepared as input for CLI-M4
 - [ ] You can explain when plan mode adds value over interactive mode
 
-**You are ready for CLI-M4.**
+Next: [CLI-M4 Bug Fix](./CLI-M4-Fix-Bugs.md)

@@ -20,28 +20,13 @@ Use the CLI's built-in **`explore`** and **`research`** agents, along with the
 
 ---
 
-## Why Separate Agents for Exploration vs Research?
-
-The CLI ships with specialised built-in agents:
-
-| Agent | Speed | Best for |
-|-------|-------|---------|
-| `explore` | Fast (Haiku) | Quick read-only lookups, summarising files |
-| `research` | Thorough (Sonnet) | Deep cross-referencing, web + repo investigation |
-| `log-analysis-agent` | Custom | ShopSphere-specific log patterns |
-
-Use `explore` for speed, `research` for depth.
-
----
 
 ## Step 1 — Scan the Log File with the Explore Agent
 
 Before going deep, get a rapid orientation of the production logs:
 
 ```bash
-copilot \
-  --agent=explore \
-  -p "Read observability/production-logs.txt and answer:
+"Read @observability/production-logs.txt and answer:
 1. How many unique error types appear?
 2. What are the timestamps of the first and last errors?
 3. Which function or method name appears most frequently in the stack traces?
@@ -140,14 +125,10 @@ This gives you the "why" behind the error, not just the "what".
 Use a single non-interactive sweep to produce the complete Bug Inventory:
 
 ```bash
-copilot \
-  --agent=log-analysis-agent \
-  --autopilot \
-  --allow-tool='read' \
-  --effort=high \
-  -p "You are a senior SRE performing post-incident log analysis.
-
-Cross-reference these files:
+copilot --agent=log-analysis-agent
+```
+```bash
+ "You are a senior SRE performing post-incident log analysis. Cross-reference these files:
 - observability/production-logs.txt
 - observability/incident-report.md
 - python-services/checkout-service/app/service/checkout_service.py
@@ -167,53 +148,11 @@ Output as a structured Markdown table."
 
 ---
 
-## Step 6 — Save and Share the Bug Inventory
-
-Export the analysis as a shareable session:
-
-```bash
-# Share to a GitHub gist (private by default)
-/share gist
-
-# Or share to a local Markdown file
-/share file ./observability/bug-inventory-session.md
-```
-
-The gist URL can be pasted into your incident ticket as the analysis artefact.
-
----
-
-## Step 7 — Compare: Explore vs Research vs Custom Agent
-
-Run the same core question through all three and compare quality:
-
-```bash
-# Quick answer — explore agent (fast)
-copilot --agent=explore -sp \
-  "What is wrong with checkout_service.py? One paragraph."
-
-# Deep answer — research agent (thorough)
-copilot --agent=research -sp \
-  "Investigate why the ShopSphere checkout service has a ~50% failure rate. Read the codebase."
-
-# Contextualised answer — custom log-analysis-agent
-copilot --agent=log-analysis-agent -sp \
-  "Analyse production-logs.txt and map each error to a line in checkout_service.py."
-```
-
-Observe the difference in depth, precision, and response time. The custom agent
-wins on relevance because its system prompt encodes ShopSphere-specific patterns.
-
----
-
 ## Checkpoint ✓
 
 - [ ] `explore` agent produced a rapid log orientation (Step 1)
 - [ ] Bug Inventory produced with file + line + impact for each bug (Step 2)
 - [ ] `/context` checked and `/compact` used if needed (Step 3)
 - [ ] `/research` ran a deep investigation on the TypeError pattern (Step 4)
-- [ ] Full non-interactive sweep produced a Markdown Bug Inventory table (Step 5)
-- [ ] Session shared as gist or saved to file (Step 6)
-- [ ] You can explain when to use `explore` vs `research` vs custom agent
 
-**You are ready for CLI-M3.**
+Next: [CLI-M3 Root Cause](./CLI-M3-Root-Cause.md)

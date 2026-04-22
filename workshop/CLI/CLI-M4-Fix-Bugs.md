@@ -234,4 +234,4 @@ test assumptions? Read the test file and the fix, then propose a resolution.
 - [ ] Changes committed with a structured commit message (manually, via `!git`)
 - [ ] `pytest tests/` passes
 
-**You are ready for CLI-M5.**
+Next: [CLI-M5 Test and PR](./CLI-M5-Tests-and-PR.md)
