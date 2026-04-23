@@ -43,7 +43,6 @@ covering the 5 bug fixes in the ShopSphere checkout service"
 Select **test-generator-agent** from the agent picker, then paste:
 
 ```
-📋 COPY AND PASTE INTO COPILOT CHAT (test-generator-agent selected):
 
 Generate pytest tests for the fixed ShopSphere CheckoutService.
 
@@ -134,7 +133,6 @@ Compare the quality and structure of the response.
 
 ### Challenge C — Add Observability
 ```
-📋 COPY AND PASTE INTO COPILOT CHAT:
 
 The checkout service has no correlation IDs — you can't trace a single
 request across the service logs.
