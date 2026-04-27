@@ -35,7 +35,7 @@ Complete these in order.
 | M2 | [Analyse Bugs with Logs using an Agent](Exercise-M2-Analyse-Logs-with-Agent.md) | `log-analysis-agent` | Turn raw logs into a ranked Bug Inventory |
 | M3 | [Root Cause Analysis with a Custom Agent](Exercise-M3-Root-Cause-Analysis-with-Agent.md) | `root-cause-agent` | Trace backward from symptom to exact code origin |
 | M4 | [Fix All Bugs with a Custom Agent](Exercise-M4-Fix-Bugs-with-Agent.md) | `bug-fix-agent` | Apply all 5 minimal fixes via agent with guardrails |
-| M5 | [Generate Tests with Agent and CLI](Exercise-M5-Generate-Tests-with-Agent-and-CLI.md) | `test-generator-agent` | Full regression suite · `gh copilot` CLI scaffolding · green run |
+| M5 | [Generate Tests with Agent and CLI](Exercise-M5-Generate-Tests-with-Agent-and-CLI.md) | `test-generator-agent` | Full regression suite · `copilot` CLI scaffolding · green run |
 
 ### OPTIONAL — Chat Participant Techniques (~45 min · 9 exercises)
 These exercises show the underlying Copilot Chat features that custom agents
@@ -53,7 +53,7 @@ your agents, or if you have time after the core path.
 | 07 | [Fix Bug #1 with `#selection`](Exercise-07-Fix-Null-Crash-with-Selection.md) | `#selection` | Fix null discount crash |
 | 08 | [Fix Bugs #2 & #3 with Agent Mode](Exercise-08-Fix-Async-and-Exceptions-Agent-Mode.md) | Agent mode | Multi-file fix: await + exc_info |
 | 09–10 | [Build & Run Your Own Debug Agent](Exercise-09-Build-Your-Debug-Agent.md) | Custom agent | Create and invoke the oncall-agent |
-| 11 | [Generate Tests with CLI](Exercise-11-Generate-Tests-with-CLI.md) | `gh copilot` CLI | Write regression tests — lock in the fixes |
+| 11 | [Generate Tests with CLI](Exercise-11-Generate-Tests-with-CLI.md) | `copilot` CLI | Write regression tests — lock in the fixes |
 
 ---
 
@@ -82,7 +82,7 @@ your agents, or if you have time after the core path.
 | Instructions file | `.github/copilot-instructions.md` — auto-loaded into every session |
 | Agent mode | Chat mode selector → Agent |
 | Custom agents | `.github/agents/*.agent.md` |
-| CLI | `gh copilot explain` / `gh copilot suggest` |
+| CLI | `copilot -p "..."` (non-interactive) / `copilot` (interactive session) |
 
 ---
 
